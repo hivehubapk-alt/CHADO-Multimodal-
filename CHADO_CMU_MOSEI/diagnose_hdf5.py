@@ -36,9 +36,9 @@ def explore_hdf5(filepath, max_depth=3):
 
 # Diagnose each file
 files = [
-    '/home/tahirahmad/CMU-MOSEI/dataset/labels/CMU_MOSEI_Labels.csd',
-    '/home/tahirahmad/CMU-MOSEI/dataset/acoustics/CMU_MOSEI_COVAREP.csd',
-    '/home/tahirahmad/CMU-MOSEI/dataset/visuals/CMU_MOSEI_VisualFacet42.csd',
+    'dataset/labels/CMU_MOSEI_Labels.csd',
+    '/CMU-MOSEI/dataset/acoustics/CMU_MOSEI_COVAREP.csd',
+    '/CMU-MOSEI/dataset/visuals/CMU_MOSEI_VisualFacet42.csd',
 ]
 
 for filepath in files:
