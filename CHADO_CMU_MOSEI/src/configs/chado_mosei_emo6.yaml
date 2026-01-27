@@ -1,0 +1,52 @@
+experiment:
+  project_root: /home/tahirahmad/CHADO_CMU_MOSEI
+  seed: 42
+  ddp: true
+
+data:
+  label_thr: 0.0
+  pred_thr_grid: [0.02, 0.05, 0.08, 0.10, 0.12, 0.15, 0.18, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50]
+  max_text_len: 96
+  batch_size: 16
+  num_workers: 4
+
+model:
+  text_model: roberta-base
+  d_model: 256
+  modality_dropout: 0.10
+  use_audio: true
+  use_video: true
+
+optim:
+  lr_backbone: 2e-5
+  lr_head: 1e-3
+  weight_decay: 1e-2
+  epochs: 10
+  grad_clip: 1.0
+
+chado:
+  enable: true
+
+  # MAD ambiguity reweighting (already in your current training logic)
+  mad:
+    enable: true
+    lambda: 0.50
+    gamma: 1.00
+
+  # Hyperbolic uncertainty head (lightweight, stable)
+  hyperbolic:
+    enable: false
+    lambda: 0.10        # uncertainty regularizer strength
+    c: 1.0              # curvature
+
+  # OT consistency (counterfactual modality perturbation + Sinkhorn distance)
+  ot:
+    enable: false
+    lambda: 0.10
+    sinkhorn_eps: 0.05
+    sinkhorn_iters: 30
+    perturb_sigma: 0.05   # noise on fused embedding to create counterfactual
+
+  # Calibration prior bias
+  prior_bias:
+    enable: true
