@@ -1,5 +1,5 @@
-project_root: /home/tahirahmad/CHADO_CMU_MOSEI
-data_root: /home/tahirahmad/CHADO_CMU_MOSEI/data/raw/cmu-mosei
+project_root: /CHADO_CMU_MOSEI
+data_root: CHADO_CMU_MOSEI/data/raw/cmu-mosei
 
 task:
   label_setup: "6class"     # or "7class" (we will set after inspecting dataset)
@@ -19,8 +19,8 @@ data:
   pred_thr_grid: [0.1,0.2,0.3,0.4,0.5,0.6,0.7]
 
 outputs:
-  runs_dir: /home/tahirahmad/CHADO_CMU_MOSEI/runs
-  logs_dir: /home/tahirahmad/CHADO_CMU_MOSEI/logs
+  runs_dir: /CHADO_CMU_MOSEI/runs
+  logs_dir:/CHADO_CMU_MOSEI/logs
 chado:
   prior_bias:
     enable: true
