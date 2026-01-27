@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+title: "CHADO: Causal–Hyperbolic–OT Ambiguity Decomposition for Multimodal Emotion Recognition"
+message: "If you use this software, please cite the associated paper."
+
+---
+
+## `environment.yml`
+```yaml
+name: chado_iemocap
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pytorch=2.5.*
+  - pytorch-cuda=12.1
+  - numpy
+  - pandas
+  - matplotlib
+  - scipy
+  - pip:
+      - transformers>=4.42
+      - soundfile
+      - librosa
+      - opencv-python
+      - pyyaml
+      - tqdm

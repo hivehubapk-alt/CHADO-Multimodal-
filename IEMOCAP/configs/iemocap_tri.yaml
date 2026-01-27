@@ -1,0 +1,41 @@
+seed: 42
+epochs: 10
+batch_size: 6
+amp: true
+
+models:
+  text_model: roberta-base
+  audio_model: facebook/wav2vec2-base
+  vision_model: google/vit-base-patch16-224
+
+data:
+  max_text_len: 96
+  audio_sec: 4.0
+  n_frames: 8
+
+chado:
+  ablation: tri
+  use_causal: true
+  use_hyperbolic: true
+  use_ot: true
+  use_refine: true
+  refine_steps: 1
+  use_mad: true
+
+weights:
+  lr_head: 1.0e-4
+  lr_enc: 2.0e-5
+  weight_decay: 0.01
+  aux_warmup_epochs: 2
+  w_causal: 0.05
+  w_hyp: 0.02
+  w_ot: 0.10
+  mad_w: 0.15
+  mad_ema: 0.995
+  mad_temp: 1.0
+
+hyper:
+  hyp_c: 1.0
+  ot_eps: 0.05
+  ot_iters: 30
+  causal_drop_p: 0.10

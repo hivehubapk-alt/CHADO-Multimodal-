@@ -1,0 +1,9 @@
+# Copy to configs/paths.yaml and edit locally.
+project_root: /Full_Final_IEMOCAP
+
+splits:
+  train_csv: ${project_root}/processed/phase1/splits_utterance_seed42/train.csv
+  val_csv:   ${project_root}/processed/phase1/splits_utterance_seed42/val.csv
+  test_csv:  ${project_root}/processed/phase1/splits_utterance_seed42/test.csv
+
+outputs_root: ${project_root}/outputs

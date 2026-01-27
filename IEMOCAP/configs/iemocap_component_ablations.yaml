@@ -1,0 +1,26 @@
+seed: 42
+variants:
+  wo_causal:
+    use_causal: false
+    use_hyperbolic: true
+    use_ot: true
+  wo_hyperbolic:
+    use_causal: true
+    use_hyperbolic: false
+    use_ot: true
+  wo_ot:
+    use_causal: true
+    use_hyperbolic: true
+    use_ot: false
+  wo_causal_hyperbolic:
+    use_causal: false
+    use_hyperbolic: false
+    use_ot: true
+  wo_causal_ot:
+    use_causal: false
+    use_hyperbolic: true
+    use_ot: false
+  wo_hyperbolic_ot:
+    use_causal: true
+    use_hyperbolic: false
+    use_ot: false

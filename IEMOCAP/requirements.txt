@@ -1,0 +1,11 @@
+torch>=2.5
+transformers>=4.42
+numpy
+pandas
+matplotlib
+scipy
+soundfile
+librosa
+opencv-python
+pyyaml
+tqdm
