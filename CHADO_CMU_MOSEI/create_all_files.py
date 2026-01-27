@@ -19,7 +19,7 @@ import numpy as np
 from pathlib import Path
 
 class CMUMOSEILoader:
-    def __init__(self, data_root='/home/tahirahmad/CMU-MOSEI/dataset'):
+    def __init__(self, data_root='/CMU-MOSEI/dataset'):
         self.data_root = Path(data_root)
         
     def load_csd_file(self, filepath):
