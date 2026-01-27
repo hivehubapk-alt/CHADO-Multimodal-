@@ -1,0 +1,19 @@
+name: chado_mm
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - numpy
+      - pandas
+      - pyyaml
+      - scikit-learn
+      - scipy
+      - matplotlib
+      - tqdm
+      - transformers
+      - torch
+      - torchvision
