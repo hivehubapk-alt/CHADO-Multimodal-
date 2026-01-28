@@ -1,5 +1,5 @@
-project_root: /home/tahirahmad/CHADO_CMU_MOSEI
-data_root: /home/tahirahmad/CHADO_CMU_MOSEI/data/raw/cmu-mosei
+project_root: /CHADO_CMU_MOSEI
+data_root: /CHADO_CMU_MOSEI/data/raw/cmu-mosei
 
 task:
   label_setup: "6class"     # or "7class" (we will set after inspecting dataset)
