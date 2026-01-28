@@ -1,0 +1,59 @@
+# configs/chado_component_wo_ablations.yaml
+base_config: configs/chado_meld.yaml
+
+# Baseline checkpoint (your trusted ~63.7/63.9)
+baseline_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+
+device: cuda
+batch_size_eval: 12
+num_workers: 6
+amp: true
+
+subset_columns:
+  ambiguous_col: is_ambiguous
+  cross_cultural_col: is_cross_cultural
+
+mad_ambiguous:
+  enabled: true
+  quantile: 0.20
+
+seeds: [42, 43, 44]
+
+# -------------------------
+# "WITHOUT ..." ABLATIONS
+# -------------------------
+ablations:
+  - name: wo_causal
+    chado: {use_causal: false, use_hyperbolic: true,  use_transport: true,  use_refinement: true}
+
+  - name: wo_hyperbolic
+    chado: {use_causal: true,  use_hyperbolic: false, use_transport: true,  use_refinement: true}
+
+  - name: wo_transport
+    chado: {use_causal: true,  use_hyperbolic: true,  use_transport: false, use_refinement: true}
+
+  - name: wo_causal_hyperbolic
+    chado: {use_causal: false, use_hyperbolic: false, use_transport: true,  use_refinement: true}
+
+  - name: wo_causal_transport
+    chado: {use_causal: false, use_hyperbolic: true,  use_transport: false, use_refinement: true}
+
+  - name: wo_hyperbolic_transport
+    chado: {use_causal: true,  use_hyperbolic: false, use_transport: false, use_refinement: true}
+
+  # Optional reference row (keep it so your table has "All (CHADO)")
+  - name: all_chado
+    chado: {use_causal: true,  use_hyperbolic: true,  use_transport: true,  use_refinement: true}
+
+output:
+  out_dir: /CHADO_MELD/runs/chado_component_wo_ablations
+  csv_name: component_wo_ablation_results.csv
+  latex_name: component_wo_ablation_table.tex
+
+# IMPORTANT: ensure tri-modal evaluation (Text+Audio+Video)
+# These keys must match what your python script reads.
+# If the script only reads from base_config, these are harmless overrides.
+model:
+  use_text: true
+  use_audio: true
+  use_video: true

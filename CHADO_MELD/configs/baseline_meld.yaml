@@ -1,0 +1,83 @@
+data:
+  train_csv: /CHADO_MELD/data/processed/meld_train.csv
+  val_csv: /CHADO_MELD/data/processed/meld_val.csv
+  test_csv: /CHADO_MELD/data/processed/meld_test.csv
+
+  num_classes: 7
+  label_col: emotion
+  text_col: text
+  audio_path_col: audio_path
+  video_path_col: video_path
+  dialogue_col: dialogue_id
+  utt_id_col: utt_id
+
+  num_frames: 8
+  frame_size: 224
+
+  sample_rate: 16000
+  max_audio_seconds: 6.0
+
+model:
+  text_model_name: roberta-base
+  audio_model_name: facebook/wav2vec2-base
+  video_model_name: google/vit-base-patch16-224-in21k
+
+  proj_dim: 256
+  dropout: 0.40
+  use_gated_fusion: true
+  # ---- CHADO component toggles (used by ablation runner) ----
+  use_causal: true
+  use_hyperbolic: true
+  use_ot: true
+
+  use_text: true
+  use_audio: true
+  use_video: true
+  gradient_checkpointing: false
+
+train:
+  seed: 42
+  epochs: 15
+  batch_size_per_gpu: 6
+  grad_accum_steps: 4
+  num_workers: 6
+  lr_head: 5.0e-4
+
+  lr: 2.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.10
+  max_grad_norm: 1.0
+  amp: true
+
+  # Stabilize training: warm start fusion head, then fine-tune encoders
+  freeze_text_epochs: 1
+  freeze_audio_epochs: 1
+  freeze_video_epochs: 1
+  lr_encoders: 1.0e-5
+  loss_type: weighted_ce
+
+  # Minority-class improvement
+  use_class_weights: true
+
+  # Safer regularization in multimodal training
+  modality_dropout_p: 0.10
+
+  # NEW knobs (used by updated train_baseline.py below)
+  loss_type: focal          # "ce" or "weighted_ce" or "focal"
+  focal_gamma: 2.0
+  label_smoothing: 0.02
+
+  # Best checkpointing / early stop
+  early_stop_patience: 8
+
+logging:
+  run_name: baseline_trimodal_meld
+  out_dir: /CHADO_MELD/runs
+  log_every: 50
+chado:
+  eval_from_baseline_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  eval_only: true
+  use_causal: false
+  use_hyperbolic: false
+  use_transport: false
+  use_refinement: false

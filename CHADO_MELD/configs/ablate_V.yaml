@@ -1,0 +1,62 @@
+data:
+  train_csv: /CHADO_MELD/data/processed/meld_train.csv
+  val_csv: /CHADO_MELD/data/processed/meld_val.csv
+  test_csv: /CHADO_MELD/data/processed/meld_test.csv
+
+  num_classes: 7
+  label_col: emotion
+  text_col: text
+  audio_path_col: audio_path
+  video_path_col: video_path
+  dialogue_col: dialogue_id
+  utt_id_col: utt_id
+
+  num_frames: 8
+  frame_size: 224
+  sample_rate: 16000
+  max_audio_seconds: 6.0
+
+model:
+  text_model_name: roberta-base
+  audio_model_name: facebook/wav2vec2-base
+  video_model_name: google/vit-base-patch16-224-in21k
+
+  proj_dim: 256
+  dropout: 0.2
+  use_gated_fusion: true
+
+  use_text: false
+  use_audio: false
+  use_video: true
+
+chado:
+  # Safety-first: start by evaluating CHADO wrapper from your baseline checkpoint
+  eval_from_baseline_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  eval_only: true
+
+  # Component toggles (for ablations later)
+  use_causal: false
+  use_hyperbolic: false
+  use_transport: false
+  use_refinement: false
+
+  # Component weights (keep small if you later fine-tune; for eval they are near-no-op anyway)
+  w_causal: 1.0
+  w_hyperbolic: 1.0
+  w_transport: 1.0
+  w_refine: 1.0
+
+train:
+  seed: 42
+  epochs: 15
+  batch_size_per_gpu: 6
+  num_workers: 6
+
+  lr: 2.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.06
+  amp: true
+
+logging:
+  run_name: chado_meld
+  out_dir: /CHADO_MELD/runs

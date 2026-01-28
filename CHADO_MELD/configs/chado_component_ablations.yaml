@@ -1,0 +1,55 @@
+# configs/chado_component_ablations.yaml
+base_config: configs/chado_meld.yaml
+
+# The baseline checkpoint you already trust (63.7% / 63.9%).
+baseline_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+
+device: cuda
+batch_size_eval: 12
+num_workers: 6
+amp: true
+
+# Subset computation:
+# - If these columns exist in your processed CSV, they will be used.
+# - Otherwise, ambiguous cases will be derived via MAD quantile on predictions.
+subset_columns:
+  ambiguous_col: is_ambiguous          # optional column in CSV
+  cross_cultural_col: is_cross_cultural # optional column in CSV
+
+# If ambiguous_col does not exist, derive ambiguous subset using MAD.
+mad_ambiguous:
+  enabled: true
+  quantile: 0.20  # top 20% most ambiguous
+
+# Seeds used for reporting mean±std (like the figure)
+seeds: [42, 43, 44]
+
+# Ablations exactly like the figure
+ablations:
+  - name: causal_only
+    chado: {use_causal: true,  use_hyperbolic: false, use_transport: false, use_refinement: false}
+
+  - name: hyperbolic_only
+    chado: {use_causal: false, use_hyperbolic: true,  use_transport: false, use_refinement: false}
+
+  - name: transport_only
+    chado: {use_causal: false, use_hyperbolic: false, use_transport: true,  use_refinement: false}
+
+  - name: causal_plus_hyperbolic
+    chado: {use_causal: true,  use_hyperbolic: true,  use_transport: false, use_refinement: false}
+
+  - name: causal_plus_transport
+    chado: {use_causal: true,  use_hyperbolic: false, use_transport: true,  use_refinement: false}
+
+  - name: hyperbolic_plus_transport
+    chado: {use_causal: false, use_hyperbolic: true,  use_transport: true,  use_refinement: false}
+
+  - name: all_chado
+    chado: {use_causal: true,  use_hyperbolic: true,  use_transport: true,  use_refinement: true}
+
+output:
+  out_dir: /CHADO_MELD/runs/chado_component_ablations
+  csv_name: component_ablation_results.csv
+  latex_name: component_ablation_table.tex
+model:
+  use_text: false

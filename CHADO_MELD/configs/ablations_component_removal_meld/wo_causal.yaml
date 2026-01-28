@@ -1,0 +1,64 @@
+data:
+  train_csv: CHADO_MELD/data/processed/meld_train.csv
+  val_csv: CHADO_MELD/data/processed/meld_val.csv
+  test_csv: /CHADO_MELD/data/processed/meld_test.csv
+  num_classes: 7
+  label_col: emotion
+  text_col: text
+  audio_path_col: audio_path
+  video_path_col: video_path
+  dialogue_col: dialogue_id
+  utt_id_col: utt_id
+  num_frames: 8
+  frame_size: 224
+  sample_rate: 16000
+  max_audio_seconds: 6.0
+model:
+  text_model_name: roberta-base
+  audio_model_name: facebook/wav2vec2-base
+  video_model_name: google/vit-base-patch16-224-in21k
+  proj_dim: 256
+  dropout: 0.2
+  use_gated_fusion: true
+  use_text: true
+  use_audio: true
+  use_video: true
+chado:
+  eval_from_baseline_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  eval_only: false
+  use_causal: false
+  use_hyperbolic: true
+  use_transport: true
+  use_refinement: true
+  w_causal: 1.0
+  w_hyperbolic: 1.0
+  w_transport: 1.0
+  w_refine: 1.0
+  train: true
+  train_enabled: true
+  enable_train: true
+  baseline_ckpt: CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  base_ckpt: CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  init_ckpt: CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  init_from_ckpt: CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  init_from_baseline_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  from_baseline_ckpt: CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  pretrained_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  load_from: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  eval_only_baseline_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  eval_baseline_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  eval_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  eval_only_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+  eval_init_ckpt: /CHADO_MELD/runs/baseline_trimodal_meld_best.pt
+train:
+  seed: 42
+  epochs: 15
+  batch_size_per_gpu: 6
+  num_workers: 6
+  lr: 2.0e-05
+  weight_decay: 0.01
+  warmup_ratio: 0.06
+  amp: true
+logging:
+  run_name: wo_causal
+  out_dir: runs/ablations_component_removal_meld/wo_causal

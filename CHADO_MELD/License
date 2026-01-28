@@ -1,0 +1,31 @@
+
+---
+
+# 🐍 environment.yml
+
+```yaml
+name: chado
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pytorch=2.1
+  - pytorch-cuda=12.1
+  - torchaudio
+  - torchvision
+  - numpy
+  - scipy
+  - scikit-learn
+  - pandas
+  - matplotlib
+  - seaborn
+  - pyyaml
+  - tqdm
+  - pip
+  - pip:
+      - transformers==4.39.3
+      - huggingface-hub
+      - geoopt
+      - POT

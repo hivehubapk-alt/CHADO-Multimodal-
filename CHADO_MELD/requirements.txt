@@ -1,0 +1,15 @@
+torch>=2.1
+torchaudio
+torchvision
+numpy
+scipy
+scikit-learn
+pandas
+matplotlib
+seaborn
+pyyaml
+tqdm
+transformers==4.39.3
+huggingface-hub
+geoopt
+POT
