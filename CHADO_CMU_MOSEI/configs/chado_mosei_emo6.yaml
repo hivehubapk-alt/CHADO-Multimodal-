@@ -19,8 +19,8 @@ data:
   pred_thr_grid: [0.1,0.2,0.3,0.4,0.5,0.6,0.7]
 
 outputs:
-  runs_dir: /home/tahirahmad/CHADO_CMU_MOSEI/runs
-  logs_dir: /home/tahirahmad/CHADO_CMU_MOSEI/logs
+  runs_dir:/CHADO_CMU_MOSEI/runs
+  logs_dir:/CHADO_CMU_MOSEI/logs
 chado:
   prior_bias:
     enable: true
