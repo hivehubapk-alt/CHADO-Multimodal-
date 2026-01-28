@@ -1,3 +1,0 @@
-
-Run this in terminal 
-pip freeze | grep -E "torch|transformers|numpy|pandas|scikit|matplotlib|scipy" > requirements.txt
