@@ -1,0 +1,47 @@
+project_root: /home/tahirahmad/CHADO_CMU_MOSEI
+data_root: /home/tahirahmad/CHADO_CMU_MOSEI/data/raw/cmu-mosei
+
+task:
+  label_setup: "6class"     # or "7class" (we will set after inspecting dataset)
+  metric_primary: "macro_f1"
+
+train:
+  gpus: [4,5,6,7]
+  num_workers: 8
+  batch_size: 32
+  epochs: 30
+  lr: 3.0e-5
+  seed: 42
+
+ablation:
+  mode: "TAV"   # T, TA, TV, TAV
+data:
+  pred_thr_grid: [0.1,0.2,0.3,0.4,0.5,0.6,0.7]
+
+outputs:
+  runs_dir: /home/tahirahmad/CHADO_CMU_MOSEI/runs
+  logs_dir: /home/tahirahmad/CHADO_CMU_MOSEI/logs
+chado:
+  prior_bias:
+    enable: true
+  mad:
+    enable: true
+    lambda: 0.50
+    gamma: 1.00
+  hyperbolic:
+    enable: false
+    lambda: 0.0
+    c: 1.0
+  ot:
+    enable: false
+    lambda: 0.0
+    sinkhorn_eps: 0.05
+    sinkhorn_iters: 30
+    perturb_sigma: 0.05
+  causal:
+    enable: false
+    lambda: 0.05
+  self_correction:
+    enable: false
+
+
